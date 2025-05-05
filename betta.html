@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuidado del Pez Betta - Mundo Submarino</title>
+  <style>
+    /* RESET: Márgenes, rellenos y altura mínima */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+    /* Clase para bloquear el scroll del fondo */
+    body.no-scroll {
+      overflow: hidden;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f0f8ff;
+      color: #333;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ccc;
+    }
+    h1, h2, h3 {
+      color: #007399;
+      margin-top: 20px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    /* Listas con margen y padding intermedios */
+    ul, ol {
+      margin: 10px 0 10px 10px;
+      padding-left: 10px;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+    /* Modo oscuro para títulos */
+    body.dark-mode h1, 
+    body.dark-mode h2, 
+    body.dark-mode h3 {
+      color: #66ccff;
+    }
+    /* Header: contiene la imagen y el botón de menú */
+    header {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    /* Imagen superior: ahora utiliza betta.png */
+    header img.top-menu {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    /* Botón de menú único */
+    .menu-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #0099cc;
+      width: 40px;
+      height: 40px;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1100;
+      text-align: center;
+      line-height: 40px;
+    }
+    /* En modo oscuro se mantienen los mismos estilos */
+    body.dark-mode .menu-button {
+      background-color: #0099cc;
+      color: #fff;
+    }
+    /* Menú lateral (igual que en index) */
+    #side-menu {
+      position: fixed;
+      top: 0;
+      right: -200px;
+      width: 200px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      z-index: 1050;
+      padding-top: 60px;
+      overflow-y: auto;
+      touch-action: none;
+    }
+    #side-menu.open {
+      right: 0;
+    }
+    .close-arrow {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #theme-menu {
+      padding: 15px 20px;
+    }
+    #theme-menu button {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Overlay para bloquear la interacción con el fondo */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(128,128,128,0.5);
+      z-index: 1025;
+      display: none;
+      pointer-events: all;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header con la imagen betta.png y botón de menú -->
+  <header>
+    <img class="top-menu" src="betta.png" alt="Betta Menu">
+    <button class="menu-button" id="menu-button">⋮</button>
+  </header>
+  
+  <!-- Menú lateral y overlay -->
+  <div id="overlay"></div>
+  <div id="side-menu">
+    <button class="close-arrow" id="close-menu-button">&larr;</button>
+    <div id="theme-menu">
+      <button id="mode-toggle">Modo: claro</button>
+    </div>
+  </div>
+  
+  <!-- Contenido del documento -->
+  <h1>Cuidado del Pez Betta (Betta splendens)</h1>
+  <p>
+    El pez betta (Betta splendens) es una de las especies más icónicas en acuariofilia gracias a su extraordinaria belleza y comportamiento fascinante. Sin embargo, para garantizar su bienestar, es fundamental conocer aspectos clave de su cuidado. Vamos a explorar cada tema en profundidad.
+  </p>
+  
+  <h2>1. Hábitat y Condiciones del Agua</h2>
+  <h3>El entorno natural</h3>
+  <p>
+    El entorno del pez betta debe replicar sus hábitats naturales de aguas tranquilas en el sudeste asiático.
+  </p>
+  
+  <h3>Tamaño del Acuario</h3>
+  <p>
+    Aunque algunos creen que los bettas pueden vivir en espacios pequeños, lo ideal es un mínimo de 10 litros por ejemplar. Si el tanque es más grande, mejor, ya que podrán nadar con mayor libertad y desarrollar mejor comportamiento.
+  </p>
+  
+  <h3>Temperatura y Calidad del Agua</h3>
+  <p>
+    Los bettas son peces tropicales y requieren temperaturas entre 24°C y 28°C, por lo que un calentador es imprescindible para evitar fluctuaciones térmicas. La calidad del agua se mantiene con:
+  </p>
+  <ul>
+    <li>Cambios parciales del agua (25-30% semanal) para evitar acumulación de toxinas.</li>
+    <li>Filtración suave para eliminar impurezas sin generar corrientes fuertes.</li>
+    <li>pH estable entre 6.5 y 7.5, evitando variaciones drásticas que puedan estresar al pez.</li>
+  </ul>
+  
+  <h3>Decoración y Elementos del Acuario</h3>
+  <p>
+    Para que el pez betta se sienta seguro y estimulado, se recomienda:
+  </p>
+  <ul>
+    <li>Plantas naturales como anubias y helechos de java, que además mejoran la calidad del agua.</li>
+    <li>Cuevas y refugios para que el pez descanse y se proteja del estrés.</li>
+    <li>Iluminación tenue para mantener un ambiente más natural.</li>
+  </ul>
+  
+  <h2>2. Alimentación</h2>
+  <h3>Tipos de Alimentos</h3>
+  <p>
+    Los bettas son carnívoros, y su dieta debe estar basada en proteínas. Los mejores alimentos para un betta incluyen:
+  </p>
+  <ul>
+    <li>Gránulos especiales para bettas, diseñados para ofrecer una nutrición completa.</li>
+    <li>Alimentos vivos como larvas de mosquito, artemia y dafnias, que estimulan su instinto de caza.</li>
+    <li>Alimentos congelados como la artemia congelada, una opción práctica con alto valor nutricional.</li>
+  </ul>
+  
+  <h3>Frecuencia y Cantidad</h3>
+  <ul>
+    <li>Dar de comer 2 veces al día en pequeñas porciones.</li>
+    <li>Evitar sobrealimentación, ya que los bettas tienen estómagos pequeños y el exceso de comida ensucia el agua.</li>
+    <li>Día de ayuno una vez por semana para mejorar la digestión.</li>
+  </ul>
+  
+  <h2>3. Comportamiento y Compatibilidad</h2>
+  <h3>Interacción con Otros Peces</h3>
+  <ul>
+    <li>Los machos deben vivir solos, ya que pelearán si se alojan juntos.</li>
+    <li>Las hembras pueden convivir en grupos llamados “sororidades”, siempre que haya espacio suficiente y escondites.</li>
+    <li>Especies compatibles: Corydoras, rasboras y caracoles pueden ser buenos compañeros, mientras que peces de colores llamativos o con aletas largas (como los guppies) pueden provocar agresión.</li>
+  </ul>
+  
+  <h3>Inteligencia y Reconocimiento</h3>
+  <ul>
+    <li>Pueden reconocer a su dueño y responder a movimientos externos.</li>
+    <li>Pueden aprender trucos simples, como seguir un objeto o saltar hacia la comida.</li>
+  </ul>
+  
+  <h2>4. Reproducción</h2>
+  <h3>Preparación del Entorno de Cría</h3>
+  <ul>
+    <li>Acuario de 20 litros con agua limpia y temperatura de 26-28°C.</li>
+    <li>Plantas flotantes o elementos suaves para favorecer la construcción del nido de burbujas.</li>
+    <li>Separación inicial entre macho y hembra para reducir agresión.</li>
+  </ul>
+  
+  <h3>El Cortejo y Desove</h3>
+  <p>
+    El macho construye un nido de burbujas en la superficie y comienza un baile de cortejo hasta que la hembra libera los huevos, que él recoge y coloca en el nido.
+  </p>
+  
+  <h3>Cuidados Post-Desove</h3>
+  <ul>
+    <li>La hembra debe ser retirada tras la puesta para evitar que el macho la ataque.</li>
+    <li>El macho protege los huevos hasta que eclosionan en 24-48 horas.</li>
+    <li>Cuando los alevines comienzan a nadar, el macho debe retirarse y alimentarlos con infusorios o nauplios de artemia.</li>
+  </ul>
+  
+  <h2>5. Enfermedades Comunes y Prevención</h2>
+  <h3>Enfermedades Frecuentes</h3>
+  <ol>
+    <li><strong>Podredumbre de aletas:</strong> causada por agua sucia o infecciones bacterianas. Se trata con mejoras en la calidad del agua y medicamentos específicos.</li>
+    <li><strong>Hinchazón o hidropesía:</strong> provocada por problemas digestivos o infecciones. Se previene con alimentación equilibrada.</li>
+    <li><strong>Puntos blancos (Ich):</strong> parásito que causa manchas blancas en el cuerpo. Se trata con aumento de temperatura y medicación.</li>
+    <li><strong>Estreñimiento:</strong> relacionado con una dieta inadecuada. Se soluciona con ayunos y alimentos ricos en fibra, como guisantes hervidos.</li>
+  </ol>
+  
+  <h3>Prevención</h3>
+  <ul>
+    <li>Cambios de agua regulares para mantener la higiene del acuario.</li>
+    <li>Filtración adecuada y control de temperatura para evitar estrés.</li>
+    <li>Dieta variada y equilibrada para reforzar el sistema inmunológico.</li>
+  </ul>
+  
+  <h2>6. Conclusión</h2>
+  <p>
+    Criar bettas con éxito requiere conocimientos y compromiso, pero la recompensa es verlos saludables y vibrantes. Con estos cuidados, tu betta puede vivir entre 3 y 5 años, e incluso más en condiciones óptimas.
+  </p>
+  
+  <script src="script.js"></script>
+  <script>
+    // Función para abrir el menú lateral y bloquear el scroll del fondo
+    const menuButton = document.getElementById("menu-button");
+    const sideMenu = document.getElementById("side-menu");
+    const overlay = document.getElementById("overlay");
+    const closeMenuButton = document.getElementById("close-menu-button");
+    
+    menuButton.addEventListener("click", function() {
+      // Ocultar el botón instantáneamente al abrir el menú
+      menuButton.style.display = "none";
+      sideMenu.classList.add("open");
+      overlay.style.display = "block";
+      document.body.classList.add("no-scroll");
+    });
+    
+    function closeMenu() {
+      sideMenu.classList.remove("open");
+      overlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+      // Al cerrar el menú, mostrar de inmediato el botón
+      menuButton.style.display = "block";
+    }
+    
+    closeMenuButton.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+    
+    // Toggle del modo claro/oscuro y cierre del menú
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle.addEventListener("click", function() {
+      const body = document.body;
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        modeToggle.textContent = "Modo: claro";
+      } else {
+        body.classList.add("dark-mode");
+        modeToggle.textContent = "Modo: oscuro";
+      }
+      closeMenu();
+    });
+  </script>
+</body>
+</html>

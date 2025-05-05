@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Submarino - Peces</title>
+  <meta name="description" content="Descubre la diversidad y belleza del reino acuático en Mundo Submarino.">
+  <style>
+    /* Reset de márgenes y rellenos */
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+    /* Clase para bloquear el scroll del fondo */
+    body.no-scroll {
+      overflow: hidden;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.dark-mode {
+      background-color: #121212;
+      color: #ccc;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+    header img.menu {
+      display: block;
+      width: calc(100% + 40px);
+      margin: -20px -20px 10px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    header h1 {
+      margin: 10px 0;
+      color: #000;
+    }
+    body.dark-mode header h1 {
+      color: #fff;
+    }
+    /* Botón de menú único */
+    .menu-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #0099cc;
+      width: 40px;
+      height: 40px;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1100;
+      text-align: center;
+      line-height: 40px;
+    }
+    /* En modo oscuro, se mantienen los mismos estilos sin borde */
+    body.dark-mode .menu-button {
+      background-color: #0099cc !important;
+      color: #fff !important;
+      z-index: 9999 !important;
+    }
+    /* Menú lateral */
+    #side-menu {
+      position: fixed;
+      top: 0;
+      right: -200px;
+      width: 200px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      transition: right 0.3s ease;
+      z-index: 1050;
+      padding-top: 60px;
+      overflow-y: auto;
+      touch-action: none;
+    }
+    #side-menu.open { right: 0; }
+    .close-arrow {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    #theme-menu {
+      padding: 15px 20px;
+    }
+    #theme-menu button {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* Overlay para bloquear interacción con el fondo */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(128,128,128,0.5);
+      z-index: 1025;
+      display: none;
+      pointer-events: all;
+    }
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    #search-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #search-input {
+      width: 80%;
+      max-width: 400px;
+      padding: 8px;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .section-title {
+      margin: 40px 0 20px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+    .fish-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+    body.dark-mode .fish-card {
+      background: #1e1e1e;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+    .fish-card img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .fish-card h3, .fish-card p {
+      margin: 0 0 10px;
+    }
+    .fish-info-button {
+      background-color: #0099cc;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Botón de menú único, con contenido "⋮" -->
+    <button class="menu-button" id="menu-button">⋮</button>
+    <img class="menu" src="menu.jpg" alt="Menú">
+    <h1>Mundo Submarino</h1>
+  </header>
+  <div id="overlay"></div>
+  <div id="side-menu">
+    <button class="close-arrow" id="close-menu-button">&larr;</button>
+    <div id="theme-menu">
+      <button id="mode-toggle">Modo: claro</button>
+    </div>
+  </div>
+  <div class="container">
+    <div id="search-container">
+      <input type="text" id="search-input" placeholder="Busca el pez que necesites...">
+    </div>
+    <section id="peces">
+      <h2 class="section-title">Peces</h2>
+      <div id="peces-container"></div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+  <script>
+    // Función para abrir el menú lateral y bloquear el scroll del fondo
+    const menuButton = document.getElementById("menu-button");
+    const sideMenu = document.getElementById("side-menu");
+    const overlay = document.getElementById("overlay");
+    const closeMenuButton = document.getElementById("close-menu-button");
+
+    menuButton.addEventListener("click", function() {
+      // El botón desaparece instantáneamente al abrir el menú
+      menuButton.style.display = "none";
+      sideMenu.classList.add("open");
+      overlay.style.display = "block";
+      document.body.classList.add("no-scroll");
+    });
+
+    function closeMenu() {
+      sideMenu.classList.remove("open");
+      overlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+      // Al cerrar el menú se muestra el botón de nuevo
+      menuButton.style.display = "block";
+    }
+
+    closeMenuButton.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
+
+    // Toggle del modo claro/oscuro y cierre del menú al cambiar el modo
+    const modeToggle = document.getElementById("mode-toggle");
+    modeToggle.addEventListener("click", function() {
+      const body = document.body;
+      if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        modeToggle.textContent = "Modo: claro";
+      } else {
+        body.classList.add("dark-mode");
+        modeToggle.textContent = "Modo: oscuro";
+      }
+      closeMenu();
+    });
+  </script>
+</body>
+</html>
